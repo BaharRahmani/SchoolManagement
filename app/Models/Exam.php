@@ -2,40 +2,33 @@
 
 namespace App\Models;
 
+use App\Enums\ExamTerm;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Exam extends Model
 {
     protected $fillable = [
         'academic_year_id',
-        'branch_id',
-        'class_id',
         'name',
-        'exam_type',
-        'start_date',
-        'end_date',
-        'description',
-        'status',
+        'term',
     ];
 
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'term' => ExamTerm::class,
+        ];
+    }
 
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class);
     }
 
-    public function branch(): BelongsTo
+    public function marks(): HasMany
     {
-        return $this->belongsTo(Branch::class);
-    }
-
-    public function schoolClass(): BelongsTo
-    {
-        return $this->belongsTo(SchoolClass::class, 'class_id');
+        return $this->hasMany(Mark::class);
     }
 }

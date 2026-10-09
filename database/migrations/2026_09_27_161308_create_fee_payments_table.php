@@ -6,41 +6,37 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('fee_payments', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('student_id')
-                ->constrained('students')
+            $table->foreignId('student_fee_id')
+                ->constrained('student_fees')
                 ->cascadeOnDelete();
-
-            $table->foreignId('fee_id')
-                ->constrained('fees')
-                ->cascadeOnDelete();
-
-            $table->decimal('amount', 12, 2);
-
+            $table->string('receipt_no', 50)->unique();
+            $table->decimal('amount_paid', 12, 2);
             $table->date('payment_date');
-
             $table->enum('payment_method', [
                 'cash',
                 'bank',
-                'online'
-            ])->default('cash');
-
-            $table->string('receipt_number')->unique();
-
-            $table->string('received_by')->nullable();
-
+                'online',
+            ]);
             $table->text('note')->nullable();
-
             $table->timestamps();
+
+            $table->index('payment_date');
+            $table->index('payment_method');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('fee_payments');
     }
 };

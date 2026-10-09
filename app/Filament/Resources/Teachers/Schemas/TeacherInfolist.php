@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Teachers\Schemas;
 
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -11,45 +12,25 @@ class TeacherInfolist
     {
         return $schema
             ->components([
+                TextEntry::make('first_name')
+                    ->label('نام'),
+                TextEntry::make('last_name')
+                    ->label('تخلص'),
                 TextEntry::make('branch.name')
-                    ->label('Branch'),
-                TextEntry::make('teacher_code'),
-                TextEntry::make('name'),
-                TextEntry::make('father_name')
-                    ->placeholder('-'),
-                TextEntry::make('gender')
-                    ->badge()
-                    ->placeholder('-'),
-                TextEntry::make('phone'),
-                TextEntry::make('email')
-                    ->label('Email address')
-                    ->placeholder('-'),
-                TextEntry::make('address')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
+                    ->label('شعبه'),
+                TextEntry::make('phone')
+                    ->label('شماره تماس'),
                 TextEntry::make('qualification')
-                    ->placeholder('-'),
-                TextEntry::make('specialization')
-                    ->placeholder('-'),
+                    ->label('تحصیلات'),
+                TextEntry::make('base_salary')
+                    ->label('معاش')
+                    ->numeric(),
                 TextEntry::make('hire_date')
-                    ->date()
-                    ->placeholder('-'),
-                TextEntry::make('salary')
-                    ->numeric()
-                    ->placeholder('-'),
-                TextEntry::make('photo')
-                    ->placeholder('-'),
-                TextEntry::make('status')
-                    ->badge(),
-                TextEntry::make('description')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                    ->label('تاریخ استخدام')
+                    ->date(),
+                IconEntry::make('is_active')
+                    ->label('فعال')
+                    ->boolean(),
             ]);
     }
 }

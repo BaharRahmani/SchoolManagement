@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SchoolClasses;
 
+use App\Filament\Navigation\AdminNavigation;
 use App\Filament\Resources\SchoolClasses\Pages\CreateSchoolClass;
 use App\Filament\Resources\SchoolClasses\Pages\EditSchoolClass;
 use App\Filament\Resources\SchoolClasses\Pages\ListSchoolClasses;
@@ -15,12 +16,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class SchoolClassResource extends Resource
 {
     protected static ?string $model = SchoolClass::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingLibrary;
+
+    protected static ?string $navigationLabel = 'صنف‌ها';
+
+    protected static string|UnitEnum|null $navigationGroup = AdminNavigation::Academic;
+
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'name';
 

@@ -6,20 +6,40 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-  
-    public function down(): void
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
-            $table->string('code')->unique();
+            $table->string('code', 30)->unique();
             $table->string('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('manager_name')->nullable();
+            $table->string('phone', 20)->nullable();
             $table->boolean('is_active')->default(true);
-
             $table->timestamps();
+
+            $table->index('is_active');
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('branch_id')
+                ->references('id')
+                ->on('branches')
+                ->nullOnDelete();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['branch_id']);
+        });
+
+        Schema::dropIfExists('branches');
     }
 };

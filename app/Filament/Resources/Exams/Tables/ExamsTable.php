@@ -21,55 +21,14 @@ class ExamsTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('academicYear.name')
+                TextColumn::make('academicYear.year_name')
                     ->label('سال تعلیمی')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('branch.name')
-                    ->label('شعبه')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('schoolClass.name')
-                    ->label('صنف')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('exam_type')
-                    ->label('نوع امتحان')
-                    ->badge()
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'monthly' => 'ماهانه',
-                        'midterm' => 'چهارونیم ماهه',
-                        'final' => 'سالانه',
-                        'quiz' => 'کوییز',
-                        'other' => 'سایر',
-                        default => $state,
-                    })
-                    ->sortable(),
-
-                TextColumn::make('start_date')
-                    ->label('تاریخ شروع')
-                    ->date('Y-m-d')
-                    ->sortable(),
-
-                TextColumn::make('end_date')
-                    ->label('تاریخ ختم')
-                    ->date('Y-m-d')
-                    ->sortable(),
-
-                TextColumn::make('status')
-                    ->label('وضعیت')
-                    ->badge()
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'planned' => 'برنامه‌ریزی شده',
-                        'active' => 'در حال برگزاری',
-                        'completed' => 'تکمیل شده',
-                        'cancelled' => 'لغو شده',
-                        default => $state,
-                    })
-                    ->sortable(),
+                TextColumn::make('term')
+                    ->label('دوره')
+                    ->badge(),
 
                 TextColumn::make('created_at')
                     ->label('تاریخ ثبت')

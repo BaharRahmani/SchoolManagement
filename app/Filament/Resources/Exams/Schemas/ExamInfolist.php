@@ -11,31 +11,13 @@ class ExamInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('academicYear.name')
-                    ->label('Academic year'),
-                TextEntry::make('branch.name')
-                    ->label('Branch'),
-                TextEntry::make('class_id')
-                    ->numeric(),
-                TextEntry::make('name'),
-                TextEntry::make('exam_type')
+                TextEntry::make('name')
+                    ->label('نام امتحان'),
+                TextEntry::make('academicYear.year_name')
+                    ->label('سال تعلیمی'),
+                TextEntry::make('term')
+                    ->label('دوره')
                     ->badge(),
-                TextEntry::make('start_date')
-                    ->date(),
-                TextEntry::make('end_date')
-                    ->date()
-                    ->placeholder('-'),
-                TextEntry::make('description')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
-                TextEntry::make('status')
-                    ->badge(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
             ]);
     }
 }

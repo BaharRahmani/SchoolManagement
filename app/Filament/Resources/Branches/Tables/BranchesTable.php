@@ -33,10 +33,6 @@ class BranchesTable
                 TextColumn::make('phone')
                     ->label('شماره تماس'),
 
-                TextColumn::make('manager_name')
-                    ->label('مسئول شعبه')
-                    ->searchable(),
-
                 IconColumn::make('is_active')
                     ->label('وضعیت')
                     ->boolean(),

@@ -6,44 +6,39 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-
+            $table->foreignId('user_id')
+                ->nullable()
+                ->unique()
+                ->constrained('users')
+                ->nullOnDelete();
             $table->foreignId('branch_id')
                 ->constrained('branches')
-                ->cascadeOnDelete();
-
-            $table->string('teacher_code')->unique();
-            $table->string('name');
-            $table->string('father_name')->nullable();
-
-            $table->enum('gender', ['male', 'female'])
-                ->nullable();
-
-            $table->string('phone');
-            $table->string('email')->nullable();
-            $table->text('address')->nullable();
-
-            $table->string('qualification')->nullable();
-            $table->string('specialization')->nullable();
-
-            $table->date('hire_date')->nullable();
-
-            $table->decimal('salary', 12, 2)->nullable();
-
-            $table->string('photo')->nullable();
-
-            $table->enum('status', ['active', 'inactive'])
-                ->default('active');
-
-            $table->text('description')->nullable();
-
+                ->restrictOnDelete();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone', 20);
+            $table->string('qualification');
+            $table->decimal('base_salary', 12, 2);
+            $table->date('hire_date');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+
+            $table->index('is_active');
+            $table->index('phone');
+            $table->index(['last_name', 'first_name']);
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('teachers');

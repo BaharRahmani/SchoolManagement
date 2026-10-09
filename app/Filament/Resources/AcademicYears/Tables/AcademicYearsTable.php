@@ -6,8 +6,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class AcademicYearsTable
@@ -16,7 +16,7 @@ class AcademicYearsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('year_name')
                     ->label('سال تعلیمی')
                     ->searchable()
                     ->sortable(),
@@ -31,7 +31,7 @@ class AcademicYearsTable
                     ->date('Y-m-d')
                     ->sortable(),
 
-                IconColumn::make('status')
+                IconColumn::make('is_active')
                     ->label('وضعیت')
                     ->boolean()
                     ->sortable(),

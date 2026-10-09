@@ -16,13 +16,18 @@ class StudentsTable
         return $table
             ->columns([
 
-                TextColumn::make('student_code')
-                    ->label('کد شاگرد')
+                TextColumn::make('admission_no')
+                    ->label('شماره ثبت')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('name')
-                    ->label('نام شاگرد')
+                TextColumn::make('first_name')
+                    ->label('نام')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('last_name')
+                    ->label('تخلص')
                     ->searchable()
                     ->sortable(),
 
@@ -33,40 +38,21 @@ class StudentsTable
 
                 TextColumn::make('gender')
                     ->label('جنسیت')
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'male' => 'ذکور',
-                        'female' => 'اناث',
-                        default => $state,
-                    }),
+                    ->badge(),
 
                 TextColumn::make('branch.name')
                     ->label('شعبه')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('parent.name')
+                TextColumn::make('guardian.name')
                     ->label('والد / سرپرست')
                     ->searchable(),
 
-                TextColumn::make('phone')
-                    ->label('شماره تماس')
-                    ->searchable(),
-
-                TextColumn::make('status')
+                TextColumn::make('is_active')
                     ->label('وضعیت')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'active' => 'فعال',
-                        'inactive' => 'غیرفعال',
-                        'graduated' => 'فارغ‌التحصیل',
-                        'left' => 'ترک تحصیل',
-                        default => $state,
-                    }),
-
-                TextColumn::make('admission_date')
-                    ->label('تاریخ ثبت‌نام')
-                    ->date('Y-m-d')
-                    ->sortable(),
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'فعال' : 'غیرفعال'),
 
                 TextColumn::make('created_at')
                     ->label('تاریخ ثبت')

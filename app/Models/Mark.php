@@ -11,16 +11,37 @@ class Mark extends Model
         'exam_id',
         'student_id',
         'subject_id',
-        'marks',
+        'written_marks',
+        'activity_marks',
+        'homework_marks',
         'total_marks',
-        'grade',
-        'remark',
+        'is_passed',
     ];
 
-    protected $casts = [
-        'marks' => 'decimal:2',
-        'total_marks' => 'decimal:2',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'written_marks' => 'decimal:2',
+            'activity_marks' => 'decimal:2',
+            'homework_marks' => 'decimal:2',
+            'total_marks' => 'decimal:2',
+            'is_passed' => 'boolean',
+        ];
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Mark $mark): void {
+            $mark->total_marks = number_format(
+                (float) $mark->written_marks
+                    + (float) $mark->activity_marks
+                    + (float) $mark->homework_marks,
+                2,
+                '.',
+                ''
+            );
+        });
+    }
 
     public function exam(): BelongsTo
     {

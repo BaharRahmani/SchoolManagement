@@ -15,13 +15,13 @@ class TeachersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->label('نام استاد')
+                TextColumn::make('first_name')
+                    ->label('نام')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('teacher_code')
-                    ->label('کد استاد')
+                TextColumn::make('last_name')
+                    ->label('تخلص')
                     ->searchable()
                     ->sortable(),
 
@@ -30,10 +30,6 @@ class TeachersTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('father_name')
-                    ->label('نام پدر')
-                    ->searchable(),
-
                 TextColumn::make('phone')
                     ->label('شماره تماس')
                     ->searchable(),
@@ -41,21 +37,14 @@ class TeachersTable
                 TextColumn::make('qualification')
                     ->label('تحصیلات'),
 
-                TextColumn::make('specialization')
-                    ->label('تخصص'),
-
-                TextColumn::make('salary')
+                TextColumn::make('base_salary')
                     ->label('معاش')
                     ->numeric(),
 
-                TextColumn::make('status')
+                TextColumn::make('is_active')
                     ->label('وضعیت')
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'active' => 'فعال',
-                        'inactive' => 'غیرفعال',
-                        default => $state,
-                    }),
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'فعال' : 'غیرفعال'),
 
                 TextColumn::make('created_at')
                     ->label('تاریخ ثبت')

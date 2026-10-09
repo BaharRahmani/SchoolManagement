@@ -16,6 +16,10 @@ class ExpensesTable
         return $table
             ->columns([
 
+                TextColumn::make('title')
+                    ->label('عنوان')
+                    ->searchable(),
+
                 TextColumn::make('branch.name')
                     ->label('شعبه')
                     ->searchable()
@@ -47,14 +51,6 @@ class ExpensesTable
                     ->label('تاریخ مصرف')
                     ->date('Y-m-d')
                     ->sortable(),
-
-                TextColumn::make('paid_to')
-                    ->label('پرداخت به')
-                    ->searchable(),
-
-                TextColumn::make('created_by')
-                    ->label('ثبت کننده')
-                    ->searchable(),
 
                 TextColumn::make('created_at')
                     ->label('تاریخ ثبت')

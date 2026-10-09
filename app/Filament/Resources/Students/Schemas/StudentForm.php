@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources\Students\Schemas;
 
+use App\Enums\Gender;
 use App\Models\Branch;
-use App\Models\StudentParent;
+use App\Models\Guardian;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class StudentForm
@@ -29,25 +31,30 @@ class StudentForm
                     ->preload()
                     ->required(),
 
-                Select::make('student_parent_id')
+                Select::make('guardian_id')
                     ->label('والد / سرپرست')
                     ->options(
-                        StudentParent::query()
+                        Guardian::query()
                             ->pluck('name', 'id')
                             ->toArray()
                     )
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->required(),
 
-                TextInput::make('student_code')
-                    ->label('کد شاگرد')
-                    ->placeholder('مثلاً STD-001')
+                TextInput::make('admission_no')
+                    ->label('شماره ثبت')
+                    ->placeholder('مثلاً 1405-001')
                     ->required()
-                    ->unique(ignoreRecord: true)
                     ->maxLength(50),
 
-                TextInput::make('name')
-                    ->label('نام شاگرد')
+                TextInput::make('first_name')
+                    ->label('نام')
+                    ->required()
+                    ->maxLength(255),
+
+                TextInput::make('last_name')
+                    ->label('تخلص')
                     ->required()
                     ->maxLength(255),
 
@@ -56,26 +63,18 @@ class StudentForm
                     ->required()
                     ->maxLength(255),
 
-                TextInput::make('grandfather_name')
+                TextInput::make('grand_father_name')
                     ->label('نام پدرکلان')
                     ->maxLength(255),
 
                 Select::make('gender')
                     ->label('جنسیت')
-                    ->options([
-                        'male' => 'ذکور',
-                        'female' => 'اناث',
-                    ])
+                    ->options(Gender::class)
                     ->required(),
 
-                DatePicker::make('date_of_birth')
+                DatePicker::make('dob')
                     ->label('تاریخ تولد')
                     ->native(false),
-
-                TextInput::make('phone')
-                    ->label('شماره تماس')
-                    ->tel()
-                    ->maxLength(30),
 
                 Textarea::make('address')
                     ->label('آدرس')
@@ -88,25 +87,9 @@ class StudentForm
                     ->directory('students')
                     ->imageEditor(),
 
-                DatePicker::make('admission_date')
-                    ->label('تاریخ ثبت‌نام')
-                    ->native(false),
-
-                Select::make('status')
-                    ->label('وضعیت شاگرد')
-                    ->options([
-                        'active' => 'فعال',
-                        'inactive' => 'غیرفعال',
-                        'graduated' => 'فارغ‌التحصیل',
-                        'left' => 'ترک تحصیل',
-                    ])
-                    ->default('active')
-                    ->required(),
-
-                Textarea::make('description')
-                    ->label('توضیحات')
-                    ->rows(4)
-                    ->columnSpanFull(),
+                Toggle::make('is_active')
+                    ->label('شاگرد فعال است')
+                    ->default(true),
             ]);
     }
 }

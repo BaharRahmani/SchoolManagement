@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Exams;
 
+use App\Filament\Navigation\AdminNavigation;
 use App\Filament\Resources\Exams\Pages\CreateExam;
 use App\Filament\Resources\Exams\Pages\EditExam;
 use App\Filament\Resources\Exams\Pages\ListExams;
@@ -15,12 +16,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ExamResource extends Resource
 {
     protected static ?string $model = Exam::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+
+    protected static ?string $navigationLabel = 'امتحانات';
+
+    protected static string|UnitEnum|null $navigationGroup = AdminNavigation::Attendance;
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'name';
 

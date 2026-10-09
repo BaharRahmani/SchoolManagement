@@ -7,7 +7,7 @@ use App\Models\Student;
 use App\Models\Subject;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class MarkForm
@@ -16,63 +16,45 @@ class MarkForm
     {
         return $schema
             ->components([
-
                 Select::make('exam_id')
                     ->label('امتحان')
-                    ->options(
-                        Exam::query()
-                            ->pluck('name', 'id')
-                            ->toArray()
-                    )
+                    ->options(Exam::query()->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->required(),
-
                 Select::make('student_id')
                     ->label('شاگرد')
-                    ->options(
-                        Student::query()
-                            ->pluck('name', 'id')
-                            ->toArray()
-                    )
+                    ->options(Student::query()->pluck('first_name', 'id'))
                     ->searchable()
                     ->preload()
                     ->required(),
-
                 Select::make('subject_id')
                     ->label('مضمون')
-                    ->options(
-                        Subject::query()
-                            ->pluck('name', 'id')
-                            ->toArray()
-                    )
+                    ->options(Subject::query()->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->required(),
-
-                TextInput::make('marks')
-                    ->label('نمره')
+                TextInput::make('written_marks')
+                    ->label('نمره تحریری')
                     ->numeric()
                     ->minValue(0)
+                    ->default(0)
                     ->required(),
-
-                TextInput::make('total_marks')
-                    ->label('مجموع نمرات')
+                TextInput::make('activity_marks')
+                    ->label('نمره فعالیت')
                     ->numeric()
-                    ->minValue(1)
-                    ->default(100)
+                    ->minValue(0)
+                    ->default(0)
                     ->required(),
-
-                TextInput::make('grade')
-                    ->label('درجه / گرید')
-                    ->placeholder('مثلاً A یا B')
-                    ->maxLength(50),
-
-                Textarea::make('remark')
-                    ->label('توضیحات')
-                    ->rows(3)
-                    ->columnSpanFull(),
-
+                TextInput::make('homework_marks')
+                    ->label('نمره کار خانگی')
+                    ->numeric()
+                    ->minValue(0)
+                    ->default(0)
+                    ->required(),
+                Toggle::make('is_passed')
+                    ->label('کامیاب')
+                    ->default(false),
             ]);
     }
 }

@@ -6,63 +6,41 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('branch_id')
                 ->constrained('branches')
-                ->cascadeOnDelete();
-
-            $table->foreignId('student_parent_id')
-                ->nullable()
-                ->constrained('student_parents')
-                ->nullOnDelete();
-
-            $table->string('student_code')->unique();
-
-            $table->string('name');
-
+                ->restrictOnDelete();
+            $table->foreignId('guardian_id')
+                ->constrained('guardians')
+                ->restrictOnDelete();
+            $table->string('admission_no', 50);
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('father_name');
-
-            $table->string('grandfather_name')
-                ->nullable();
-
-            $table->enum('gender', [
-                'male',
-                'female'
-            ]);
-
-            $table->date('date_of_birth')
-                ->nullable();
-
-            $table->string('phone')
-                ->nullable();
-
-            $table->text('address')
-                ->nullable();
-
-            $table->string('photo')
-                ->nullable();
-
-            $table->date('admission_date')
-                ->nullable();
-
-            $table->enum('status', [
-                'active',
-                'inactive',
-                'graduated',
-                'left'
-            ])->default('active');
-
-            $table->text('description')
-                ->nullable();
-
+            $table->string('grand_father_name')->nullable();
+            $table->date('dob')->nullable();
+            $table->enum('gender', ['male', 'female']);
+            $table->string('photo')->nullable();
+            $table->text('address')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+
+            $table->unique(['branch_id', 'admission_no']);
+            $table->index('is_active');
+            $table->index('gender');
+            $table->index(['last_name', 'first_name']);
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('students');

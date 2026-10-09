@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Expenses\Schemas;
 use App\Models\Branch;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class ExpenseForm
@@ -15,6 +15,11 @@ class ExpenseForm
     {
         return $schema
             ->components([
+
+                TextInput::make('title')
+                    ->label('عنوان')
+                    ->required()
+                    ->maxLength(255),
 
                 Select::make('branch_id')
                     ->label('شعبه')
@@ -54,16 +59,6 @@ class ExpenseForm
                     ->native(false)
                     ->default(now())
                     ->required(),
-
-                TextInput::make('paid_to')
-                    ->label('پرداخت به')
-                    ->placeholder('نام شخص یا شرکت')
-                    ->maxLength(255),
-
-                TextInput::make('created_by')
-                    ->label('ثبت کننده')
-                    ->placeholder('نام ثبت کننده')
-                    ->maxLength(255),
 
                 Textarea::make('description')
                     ->label('توضیحات')

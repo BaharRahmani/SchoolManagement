@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\AcademicYears;
 
+use App\Filament\Navigation\AdminNavigation;
 use App\Filament\Resources\AcademicYears\Pages\CreateAcademicYear;
 use App\Filament\Resources\AcademicYears\Pages\EditAcademicYear;
 use App\Filament\Resources\AcademicYears\Pages\ListAcademicYears;
@@ -15,14 +16,21 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AcademicYearResource extends Resource
 {
     protected static ?string $model = AcademicYear::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationLabel = 'سال‌های تعلیمی';
+
+    protected static string|UnitEnum|null $navigationGroup = AdminNavigation::General;
+
+    protected static ?int $navigationSort = 3;
+
+    protected static ?string $recordTitleAttribute = 'year_name';
 
     public static function form(Schema $schema): Schema
     {

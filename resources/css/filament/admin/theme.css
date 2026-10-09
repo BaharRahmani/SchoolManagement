@@ -1,0 +1,49 @@
+@import url('https://fonts.bunny.net/css?family=noto-naskh-arabic:400,500,600,700&display=swap');
+@import url('https://fonts.bunny.net/css?family=amiri:400,700&display=swap');
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+html.fi {
+    font-family: var(--font-family), 'Noto Naskh Arabic', Amiri, Tahoma, sans-serif;
+}
+
+html[dir='rtl'] .fi-body,
+html[dir='rtl'] .fi-fo-field-label,
+html[dir='rtl'] .fi-fo-field-label-content,
+html[dir='rtl'] .fi-section-header-heading,
+html[dir='rtl'] .fi-section-header-description,
+html[dir='rtl'] .fi-ta-header-cell,
+html[dir='rtl'] .fi-ta-cell,
+html[dir='rtl'] .fi-ta-text,
+html[dir='rtl'] .fi-modal-heading,
+html[dir='rtl'] .fi-modal-description,
+html[dir='rtl'] .fi-modal-content {
+    text-align: right;
+}
+
+html[dir='rtl'] .fi-input,
+html[dir='rtl'] .fi-select-input,
+html[dir='rtl'] .fi-fo-textarea,
+html[dir='rtl'] textarea,
+html[dir='rtl'] input:not([type='checkbox']):not([type='radio']) {
+    text-align: right;
+}
+
+.fi-sidebar-header {
+    border-bottom: 1px solid color-mix(in oklab, var(--primary-600) 18%, transparent);
+}
+
+.fi-sidebar-group-label {
+    letter-spacing: 0;
+}
+
+.fi-wi-stats-overview-stat {
+    border: 1px solid color-mix(in oklab, var(--gray-200) 80%, transparent);
+    border-radius: 1rem;
+}
+
+.dark .fi-wi-stats-overview-stat {
+    border-color: color-mix(in oklab, var(--gray-700) 80%, transparent);
+}

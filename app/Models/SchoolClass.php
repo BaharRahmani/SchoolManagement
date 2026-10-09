@@ -3,31 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SchoolClass extends Model
 {
+    protected $table = 'classes';
+
     protected $fillable = [
         'name',
-        'grade',
-        'branch_id',
-        'academic_year_id',
-        'capacity',
-        'is_active',
+        'grade_level',
     ];
 
-    protected $casts = [
-        'is_active' => 'boolean',
-        'capacity' => 'integer',
-    ];
-
-    public function branch(): BelongsTo
+    protected function casts(): array
     {
-        return $this->belongsTo(Branch::class);
+        return [
+            'grade_level' => 'integer',
+        ];
     }
 
-    public function academicYear(): BelongsTo
+    public function sections(): HasMany
     {
-        return $this->belongsTo(AcademicYear::class);
+        return $this->hasMany(Section::class, 'class_id');
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class, 'class_id');
     }
 }

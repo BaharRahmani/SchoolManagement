@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Marks;
 
+use App\Filament\Navigation\AdminNavigation;
 use App\Filament\Resources\Marks\Pages\CreateMark;
 use App\Filament\Resources\Marks\Pages\EditMark;
 use App\Filament\Resources\Marks\Pages\ListMarks;
@@ -15,12 +16,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class MarkResource extends Resource
 {
     protected static ?string $model = Mark::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencilSquare;
+
+    protected static ?string $navigationLabel = 'ثبت نمرات و درجه‌ها';
+
+    protected static string|UnitEnum|null $navigationGroup = AdminNavigation::Attendance;
+
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'id';
 

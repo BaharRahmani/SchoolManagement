@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Marks\Schemas;
 
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -12,26 +13,26 @@ class MarkInfolist
         return $schema
             ->components([
                 TextEntry::make('exam.name')
-                    ->label('Exam'),
-                TextEntry::make('student.name')
-                    ->label('Student'),
+                    ->label('امتحان'),
+                TextEntry::make('student.first_name')
+                    ->label('شاگرد'),
                 TextEntry::make('subject.name')
-                    ->label('Subject'),
-                TextEntry::make('marks')
+                    ->label('مضمون'),
+                TextEntry::make('written_marks')
+                    ->label('تحریری')
+                    ->numeric(),
+                TextEntry::make('activity_marks')
+                    ->label('فعالیت')
+                    ->numeric(),
+                TextEntry::make('homework_marks')
+                    ->label('کار خانگی')
                     ->numeric(),
                 TextEntry::make('total_marks')
+                    ->label('مجموع')
                     ->numeric(),
-                TextEntry::make('grade')
-                    ->placeholder('-'),
-                TextEntry::make('remark')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                IconEntry::make('is_passed')
+                    ->label('کامیاب')
+                    ->boolean(),
             ]);
     }
 }

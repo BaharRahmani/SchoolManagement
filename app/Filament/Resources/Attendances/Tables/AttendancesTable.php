@@ -16,12 +16,12 @@ class AttendancesTable
         return $table
             ->columns([
 
-                TextColumn::make('student.name')
+                TextColumn::make('student.first_name')
                     ->label('شاگرد')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('schoolClass.name')
+                TextColumn::make('section.name')
                     ->label('صنف')
                     ->searchable()
                     ->sortable(),
@@ -33,22 +33,9 @@ class AttendancesTable
 
                 TextColumn::make('status')
                     ->label('وضعیت')
-                    ->badge()
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'present' => 'حاضر',
-                        'absent' => 'غایب',
-                        'late' => 'دیر آمده',
-                        'leave' => 'رخصت',
-                        default => $state,
-                    }),
+                    ->badge(),
 
-                TextColumn::make('check_in')
-                    ->label('وقت ورود'),
-
-                TextColumn::make('check_out')
-                    ->label('وقت خروج'),
-
-                TextColumn::make('note')
+                TextColumn::make('remarks')
                     ->label('یادداشت')
                     ->limit(40)
                     ->toggleable(),

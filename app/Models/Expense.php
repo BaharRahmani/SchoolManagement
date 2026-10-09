@@ -9,18 +9,20 @@ class Expense extends Model
 {
     protected $fillable = [
         'branch_id',
-        'category',
+        'title',
         'amount',
+        'category',
         'expense_date',
-        'paid_to',
         'description',
-        'created_by',
     ];
 
-    protected $casts = [
-        'amount' => 'decimal:2',
-        'expense_date' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'amount' => 'decimal:2',
+            'expense_date' => 'date',
+        ];
+    }
 
     public function branch(): BelongsTo
     {

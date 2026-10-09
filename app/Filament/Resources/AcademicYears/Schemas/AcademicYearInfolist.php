@@ -12,22 +12,17 @@ class AcademicYearInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
+                TextEntry::make('year_name')
+                    ->label('سال تعلیمی'),
                 TextEntry::make('start_date')
+                    ->label('تاریخ شروع')
                     ->date(),
                 TextEntry::make('end_date')
+                    ->label('تاریخ ختم')
                     ->date(),
-                IconEntry::make('status')
+                IconEntry::make('is_active')
+                    ->label('فعال')
                     ->boolean(),
-                TextEntry::make('description')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
             ]);
     }
 }

@@ -11,26 +11,22 @@ class ExpenseInfolist
     {
         return $schema
             ->components([
+                TextEntry::make('title')
+                    ->label('عنوان'),
                 TextEntry::make('branch.name')
-                    ->label('Branch'),
-                TextEntry::make('category'),
+                    ->label('شعبه'),
+                TextEntry::make('category')
+                    ->label('دسته‌بندی'),
                 TextEntry::make('amount')
+                    ->label('مبلغ')
                     ->numeric(),
                 TextEntry::make('expense_date')
+                    ->label('تاریخ')
                     ->date(),
-                TextEntry::make('paid_to')
-                    ->placeholder('-'),
                 TextEntry::make('description')
+                    ->label('توضیحات')
                     ->placeholder('-')
                     ->columnSpanFull(),
-                TextEntry::make('created_by')
-                    ->placeholder('-'),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
             ]);
     }
 }

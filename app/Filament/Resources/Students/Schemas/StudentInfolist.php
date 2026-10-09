@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Students\Schemas;
 
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -11,42 +12,28 @@ class StudentInfolist
     {
         return $schema
             ->components([
+                TextEntry::make('admission_no')
+                    ->label('شماره ثبت'),
+                TextEntry::make('first_name')
+                    ->label('نام'),
+                TextEntry::make('last_name')
+                    ->label('تخلص'),
+                TextEntry::make('father_name')
+                    ->label('نام پدر'),
                 TextEntry::make('branch.name')
-                    ->label('Branch'),
-                TextEntry::make('student_parent_id')
-                    ->numeric()
-                    ->placeholder('-'),
-                TextEntry::make('student_code'),
-                TextEntry::make('name'),
-                TextEntry::make('father_name'),
-                TextEntry::make('grandfather_name')
-                    ->placeholder('-'),
+                    ->label('شعبه'),
+                TextEntry::make('guardian.name')
+                    ->label('ولی'),
                 TextEntry::make('gender')
+                    ->label('جنسیت')
                     ->badge(),
-                TextEntry::make('date_of_birth')
+                TextEntry::make('dob')
+                    ->label('تاریخ تولد')
                     ->date()
                     ->placeholder('-'),
-                TextEntry::make('phone')
-                    ->placeholder('-'),
-                TextEntry::make('address')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
-                TextEntry::make('photo')
-                    ->placeholder('-'),
-                TextEntry::make('admission_date')
-                    ->date()
-                    ->placeholder('-'),
-                TextEntry::make('status')
-                    ->badge(),
-                TextEntry::make('description')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                IconEntry::make('is_active')
+                    ->label('فعال')
+                    ->boolean(),
             ]);
     }
 }

@@ -8,17 +8,34 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * branch_id is constrained in the branches migration, because that table
+     * does not exist yet when the default users migration runs.
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('branch_id')->nullable()->index();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('user_type', [
+                'super_admin',
+                'branch_manager',
+                'accountant',
+                'teacher',
+                'registrar',
+            ]);
+            $table->string('phone', 20)->nullable();
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->index('user_type');
+            $table->index('is_active');
+            $table->index('phone');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

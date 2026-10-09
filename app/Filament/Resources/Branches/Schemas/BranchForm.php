@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Branches\Schemas;
 
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -32,15 +32,11 @@ class BranchForm
                             ->unique(ignoreRecord: true)
                             ->maxLength(50),
 
-                        TextInput::make('manager_name')
-                            ->label('نام مسئول شعبه')
-                            ->placeholder('نام مسئول شعبه')
-                            ->maxLength(255),
-TextInput::make('phone')
-    ->label('شماره تماس')
-    ->tel()
-    ->maxLength(20)
-    ->nullable()
+                        TextInput::make('phone')
+                            ->label('شماره تماس')
+                            ->tel()
+                            ->maxLength(20)
+                            ->nullable(),
 
                     ])
                     ->columns(2),

@@ -21,7 +21,7 @@ class MarksTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('student.name')
+                TextColumn::make('student.first_name')
                     ->label('شاگرد')
                     ->searchable()
                     ->sortable(),
@@ -31,25 +31,20 @@ class MarksTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('marks')
-                    ->label('نمره')
+                TextColumn::make('written_marks')
+                    ->label('نمره تحریری')
                     ->numeric()
                     ->sortable(),
 
                 TextColumn::make('total_marks')
-                    ->label('مجموع نمرات')
+                    ->label('مجموع')
                     ->numeric()
                     ->sortable(),
 
-                TextColumn::make('grade')
-                    ->label('گرید')
+                TextColumn::make('is_passed')
+                    ->label('نتیجه')
                     ->badge()
-                    ->sortable(),
-
-                TextColumn::make('remark')
-                    ->label('توضیحات')
-                    ->limit(40)
-                    ->toggleable(),
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'کامیاب' : 'ناکام'),
 
                 TextColumn::make('created_at')
                     ->label('تاریخ ثبت')
